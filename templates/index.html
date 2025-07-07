@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Idea Generator</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Project Idea Generator</h1>
+    <div class="input-group">
+      <label for="topicInput">Topic</label>
+      <input id="topicInput" type="text" placeholder="Enter a topic (e.g., AI, healthcare)" />
+    </div>
+    <div class="input-group">
+      <label for="domainInput">Domain</label>
+      <input id="domainInput" type="text" placeholder="Enter domain (e.g., Education, Finance)" />
+    </div>
+    <div class="input-group">
+      <label for="skillSelect">Skill Level</label>
+      <select id="skillSelect" title="Select your skill level">
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate" selected>Intermediate</option>
+        <option value="Advanced">Advanced</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="techInput">Known Technologies</label>
+      <input id="techInput" type="text" placeholder="Enter known technologies (comma separated)" />
+    </div>
+    <div class="buttons">
+      <button id="generateBtn">Generate Ideas</button>
+      <button id="downloadPdfBtn" disabled>Download as PDF</button>
+    </div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const generateBtn = document.getElementById("generateBtn");
+    const downloadPdfBtn = document.getElementById("downloadPdfBtn");
+    const resultDiv = document.getElementById("result");
+    const { jsPDF } = window.jspdf;
+
+    generateBtn.addEventListener("click", generateIdea);
+    downloadPdfBtn.addEventListener("click", downloadPDF);
+
+    async function generateIdea() {
+      const topic = document.getElementById("topicInput").value.trim();
+      const domain = document.getElementById("domainInput").value.trim();
+      const skill = document.getElementById("skillSelect").value;
+      const technologies = document.getElementById("techInput").value.trim();
+
+      if (!topic) {
+        alert("Please enter a topic.");
+        return;
+      }
+
+      resultDiv.innerHTML = `<div class="loading">Generating ideas... <span class="spinner"></span></div>`;
+      downloadPdfBtn.disabled = true;
+
+      try {
+        const response = await fetch("/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ topic, domain, skill, technologies }),
+        });
+
+        const data = await response.json();
+
+        resultDiv.innerHTML = formatIdeas(data.idea);
+        downloadPdfBtn.disabled = false;
+      } catch (error) {
+        resultDiv.textContent = "Error generating ideas. Please try again.";
+        downloadPdfBtn.disabled = true;
+        console.error(error);
+      }
+    }
+
+    function formatIdeas(text) {
+      // Add formatting with headings bold and highlights for Objective etc.
+      let html = text
+        .replace(/^Title:\s*(.+)$/gim, '<div class="bold-heading">Title: $1</div>')
+        .replace(/^Objective:\s*(.+)$/gim, '<div class="highlight">Objective: $1</div>')
+        .replace(/^Technology Stack:\s*(.+)$/gim, '<div class="tech-stack">Technology Stack: $1</div>')
+        .replace(/\n/g, "<br>");
+      return html;
+    }
+
+    function downloadPDF() {
+      const content = resultDiv.innerText || resultDiv.textContent;
+      if (!content.trim()) {
+        alert("No content to download.");
+        return;
+      }
+
+      const doc = new jsPDF();
+      const splitText = doc.splitTextToSize(content, 180);
+      doc.text(splitText, 10, 10);
+      doc.save("project_ideas.pdf");
+    }
+  </script>
+</body>
+</html>
+
+
