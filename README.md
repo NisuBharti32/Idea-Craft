@@ -1,4 +1,4 @@
-# My Project
+ 
 
 # IdeaCraft – AI Project Idea Generator
 
