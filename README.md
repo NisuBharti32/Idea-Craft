@@ -17,12 +17,12 @@ IdeaCraft is an AI-powered project idea generator web app built using Flask and 
 
 ## Technologies Used
 
-Flask: Backend web framework in Python
-Groq API: OpenAI-compatible large language model API
-HTML/CSS : Frontend UI with custom styling
-Jinja2: Template rendering engine used in Flask
-python-dotenv: For managing environment variables
-fpdf / reportlab: For generating PDF files
+-Flask: Backend web framework in Python
+-Groq API: OpenAI-compatible large language model API
+-HTML/CSS : Frontend UI with custom styling
+-Jinja2: Template rendering engine used in Flask
+-python-dotenv: For managing environment variables
+-fpdf / reportlab: For generating PDF files
 
 
  
