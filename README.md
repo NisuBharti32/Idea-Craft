@@ -83,3 +83,39 @@ Open your browser and go to:
      
  http://127.0.0.1:5000/
   ```
+## How It Works
+
+
+1. User enters topic, domain, skill level, and technologies
+2. Frontend sends data to Flask `/generate` endpoint
+3. Backend creates a structured AI prompt
+4. Groq API generates project ideas
+5. Ideas are displayed on UI and can be downloaded as PDF
+
+##  Example Use Cases
+
+
+- Students looking for **final year project ideas**
+- Hackathon participants
+- Beginners learning **GenAI + Flask**
+- Resume-worthy AI project demonstration
+
+  ##  Security Notes
+
+
+- API key is stored securely using environment variables
+- `.env` file should **not** be pushed to GitHub
+
+
+##  Future Improvements
+
+
+- User authentication
+- Save/download ideas history
+- Model selection option
+- Deployment on Render / Railway
+
+##  Author
+**Nishu Bharti**
+Project Name: **Idea Craft**
+B.Tech CSE (AI Specialization)
