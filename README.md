@@ -22,7 +22,64 @@ IdeaCraft is an AI-powered project idea generator web app built using Flask and 
 - **HTML/CSS**: Frontend UI with custom styling  
 - **Jinja2**: Template rendering engine used in Flask  
 - **python-dotenv**: For managing environment variables  
-- **fpdf / reportlab**: For generating PDF files  
+- **fpdf / reportlab**: For generating PDF files
+-  
+## Tech Stack
+### Frontend
+  - HTML5
+  - CSS3 (Dark UI)
+  -JavaScript (Fetch API)
+  -jsPDF (PDF generation)
+### Backend
+   -Python
+   -Flask
+   -Requests
+   -python-dotenv
 
+ ### AI Model
+   -Groq API
+   -Model: llama3-8b-8192
 
- 
+   ## Project Structure
+   ```bash
+ idea-craft/
+│
+├── app.py
+├── .env
+├── requirements.txt
+│
+├── templates/
+│ └── index.html
+│
+├── static/
+│ └── style.css
+│
+└── README.md    
+ ```
+## Setup Instructions  
+### 1️ Clone the Repository
+ ```
+git clone https://github.com/your-username/project-idea-generator.git
+cd project-idea-generator  ```
+### 2️ Create Virtual Environment (Optional but Recommended)
+ ```
+python -m venv venv
+source venv/bin/activate # Windows: venv\Scripts\activate
+ ```
+### 3️ Install Dependencies
+ ```
+pip install -r requirements.txt
+ ```
+### 4️ Setup Environment Variables
+Create a  ```.env  ``` file in the root directory:
+ ```
+GROQ_API_KEY=your_groq_api_key_here
+ ```
+### Run the Application
+ ```
+python app.py
+ ```
+Open your browser and go to:
+     
+ http://127.0.0.1:5000/
+  ```
